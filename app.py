@@ -25,6 +25,7 @@ SELECT_ALL = "SELECT * FROM people"
 UPDATE_ONE = "UPDATE people SET name = %s, date_of_birth = %s, address = %s WHERE id = %s"
 DELETE_ONE = "DELETE FROM people WHERE id = %s"
 
+
 @app.route('/')
 def index():
     return redirect('/people/show')

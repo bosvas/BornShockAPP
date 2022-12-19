@@ -1,4 +1,5 @@
 import matplotlib
+
 matplotlib.use('svg')
 import matplotlib.pyplot as plt
 import io
@@ -19,6 +20,7 @@ def make_chart(quake_list, name):
     plt.xlabel('DateTime')
 
     plt.ylabel('Magnitude')
+
     plt.legend()
 
     img = io.BytesIO()

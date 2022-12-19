@@ -39,10 +39,8 @@ def get_quakes(start_time, address):
         place = quake['properties']['place']
         mag = quake['properties']['mag']
         time = quake['properties']['time']
-        date = datetime.datetime.fromtimestamp(int(time)/1000).strftime('%Y-%m-%d %H:%M')
+        date = datetime.datetime.fromtimestamp(int(time) / 1000).strftime('%Y-%m-%d %H:%M')
         quake_list.append((place, mag, date))
         # print(f'Place: {place}. Magnitude: {mag}, date : {date}')
 
     return sorted(quake_list, key=lambda t: t[2])
-
-

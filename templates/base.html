@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
+    <style>
 	table.iksweb{text-decoration: none;border-collapse:collapse;width:100%;text-align:left;}
 	table.iksweb th{font-weight:500;font-size:20px; color:#354251;background-color:#76ed72;}
 	table.iksweb td{font-size:18px;color:#354251;}
@@ -46,23 +46,24 @@
     inset 4px 4px 6px 0 rgba(0, 0, 0, .4);
 }
 
-</style>
-    <title>   {% block title%} {% endblock %}</title>
+
+    </style>
+    <title> {% block title%} {% endblock %}</title>
 </head>
 <body>
-        <p style="font:italic 30px bold "Times New Roman", Times, serif">
-        BornShockApp
-        <img src="https://www.taransworld.com/GoW_graphics/Game/7453.png" align="right" style="width: 300px; height: 225px;"/>
-        </p>
-        <nav>
-        <a href="/people/show">
-            <button class="custom-btn btn-2">Show people</button>
-        </a>
-        <br>
-        <a href="/people/new">
-            <button class="custom-btn btn-2">New person</button>
-        </a>
-        </nav>
+<p style="font:italic 30px bold " Times New Roman", Times, serif">
+BornShockApp
+<img src="https://www.taransworld.com/GoW_graphics/Game/7453.png" align="right" style="width: 300px; height: 225px;"/>
+</p>
+<nav>
+    <a href="/people/show">
+        <button class="custom-btn btn-2">Show people</button>
+    </a>
+    <br>
+    <a href="/people/new">
+        <button class="custom-btn btn-2">New person</button>
+    </a>
+</nav>
 <br>
 <br>
 {% block body %}
