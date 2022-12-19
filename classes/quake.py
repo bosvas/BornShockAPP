@@ -1,6 +1,5 @@
 import datetime
 
-
 class Quake:
     def __init__(self, place: str, mag: float, date: datetime):
         self.place = place

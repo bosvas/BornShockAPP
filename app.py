@@ -18,16 +18,12 @@ CREATE TABLE IF NOT EXISTS people(
                        date_of_birth VARCHAR(20) NOT NULL,
                        address VARCHAR(100) NOT NULL       
 );"""
-
 INSERT_PERSON = """INSERT INTO people (name, date_of_birth, address)
                                 VALUES (%s, %s, %s);"""
-
 GET_ONE_BY_ID = "SELECT * FROM people WHERE id = %s"
-
+SELECT_ALL = "SELECT * FROM people"
 UPDATE_ONE = "UPDATE people SET name = %s, date_of_birth = %s, address = %s WHERE id = %s"
-
 DELETE_ONE = "DELETE FROM people WHERE id = %s"
-
 
 @app.route('/')
 def index():
@@ -38,7 +34,8 @@ def index():
 def get_all():
     with connection:
         with connection.cursor() as cursor:
-            cursor.execute('SELECT * FROM people;')
+            cursor.execute(CREATE_PEOPLE_TABLE)
+            cursor.execute(SELECT_ALL)
             people = cursor.fetchall()
     return render_template('index.html', people=people)
 
@@ -52,7 +49,6 @@ def create_person():
         with connection:
             with connection.cursor() as cursor:
                 cursor.execute(CREATE_PEOPLE_TABLE)
-                ## TODO before release delete line of creating table
                 cursor.execute(INSERT_PERSON, (name, date_of_birth, address))
         return redirect("/people/show")
     return render_template('new.html')

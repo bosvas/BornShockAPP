@@ -1,11 +1,8 @@
 import matplotlib
-
 matplotlib.use('svg')
 import matplotlib.pyplot as plt
 import io
 import base64
-import matplotlib.dates as mdates
-from datetime import datetime
 
 
 def make_chart(quake_list, name):
@@ -20,9 +17,6 @@ def make_chart(quake_list, name):
 
     plt.title('Earthquakes magnitude on the week you were born')
     plt.xlabel('DateTime')
-    # date_format = mdates.DateFormatter("%Y-%m-%d")
-    # plt.gca().xaxis.set_major_formatter(date_format)
-    # plt.gca().xaxis.set_major_locator(mdates.DayLocator(interval=1))
 
     plt.ylabel('Magnitude')
     plt.legend()
