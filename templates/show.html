@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title%}person{% endblock %}
+
+{% block body %}
+<h3>{{person[1]}}</h3>
+<h3>{{person[2]}}</h3>
+<h3>{{person[3]}}</h3>
+<img src="data:image/png;base64,{{ plot_url }}">
+<p>The list of earthquakes, that were exploded where and when you were born.</p>
+{% for item in quakes %}
+    <li>{{item[0]}}, {{item[1]}}, {{item[2]}} </li>
+{% endfor %}
+
+{% endblock %}

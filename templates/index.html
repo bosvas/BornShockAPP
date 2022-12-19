@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+    {% block title%} Index {% endblock %}
+
+    {% block body %}
+        {% if people %}
+            <table class="iksweb">
+                  <thead>
+                      <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Date of birth</th>
+                        <th>Address</th>
+                      </tr>
+                  </thead>
+                <tbody>
+                {% for person in people %}
+                    <tr>
+                        <td>{{person[0]}}</td>
+                        <td>{{person[1]}}</td>
+                        <td>{{person[2]}}</td>
+                        <td>{{person[3]}}</td>
+                        <td> <a href="/people/show/{{person[0]}}">Show</a></td>
+                        <td> <a href="/people/update/{{person[0]}}">Update</a></td>
+                        <td> <a href="/people/delete/{{person[0]}}">Delete</a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>People list is empty!</p>
+        {% endif %}
+
+
+
+    {% endblock %}
+
+<!--    <style>-->
+<!--        nav a {-->
+<!--            color: #d64161;-->
+<!--            font-size: 3em;-->
+<!--            margin-left: 50px;-->
+<!--            text-decoration: none;-->
+<!--        }-->
+
+<!--        .book {-->
+<!--            padding: 20px;-->
+<!--            margin: 10px;-->
+<!--            background-color: #f7f4f4;-->
+<!--        }-->
+
+<!--        .review {-->
+<!--                margin-left: 50px;-->
+<!--                font-size: 20px;-->
+<!--        }-->
+
+<!--    </style>-->
+
+
+
+
+<!--        <h1>HI!</h1>-->
+<!--            <img src={{url_for('static', filename='logo.png')}} height="300", width="300">-->
+
+
+<!--    <div class="container">-->
+<!--        <div class="row">-->
+<!--            <div class="col md-12">-->
+<!--                <div class="jumbotron p-3">-->
+<!--                    <h2>Manage <b>Employees</b><button type="button" class="btn btn-success float right"-->
+<!--                    data-toggle="modal" data-target="#mymodal">Add New Employees</button> </h2>-->
