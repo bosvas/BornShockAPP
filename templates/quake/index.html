@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title%} Index {% endblock %}
+
+{% block body %}
+{% if quakes %}
+<table class="iksweb">
+    <thead>
+    <tr>
+        <th>Quake ID</th>
+        <th>Place</th>
+        <th>Magnitude</th>
+        <th>DateTime of quake</th>
+        <th>Person's name</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for quake in quakes %}
+    <tr>
+        <td>{{quake.id}}</td>
+        <td>{{quake.place}}</td>
+        <td>{{quake.mag}}</td>
+        <td>{{quake.date}}</td>
+        <td>{{quake.person.name}}</td>
+
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>Quakes list is empty!</p>
+{% endif %}
+
+
+{% endblock %}

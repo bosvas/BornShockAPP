@@ -32,7 +32,8 @@ CREATE TABLE IF NOT EXISTS quakes(
 INSERT_PERSON = """INSERT INTO people (name, date_of_birth, address)
                                 VALUES (%s, %s, %s);"""
 GET_ONE_BY_ID = "SELECT * FROM people WHERE id = %s"
-SELECT_ALL = "SELECT * FROM people"
+SELECT_ALL_PEOPLE = "SELECT * FROM people"
+SELECT_ALL_QUAKES = "SELECT * FROM quakes"
 UPDATE_ONE = "UPDATE people SET name = %s, date_of_birth = %s, address = %s WHERE id = %s"
 DELETE_ONE = "DELETE FROM people WHERE id = %s"
 GET_QUAKES_BY_PERSON_ID = "SELECT * FROM quakes WHERE person_id = %s"
@@ -50,12 +51,14 @@ def get_all():
     with connection:
         with connection.cursor() as cursor:
             cursor.execute(CREATE_PEOPLE_TABLE)
-            cursor.execute(SELECT_ALL)
+            cursor.execute(SELECT_ALL_PEOPLE)
             people_tuples = cursor.fetchall()
             people_objects = [Person(*person) for person in people_tuples]
             # some possible actions with list of Persons
+            # for example - return people sorted by name value (don't forget to change
+            #people_objects_sorted =sorted(people_objects, key=lambda person: person.name)
 
-    return render_template('index.html', people=people_objects)
+    return render_template('person/index.html', people=people_objects)
 
 
 @app.route("/people/new", methods=['GET', 'POST'])
@@ -77,7 +80,7 @@ def create_person():
                     cursor.execute(INSERT_QUAKE, (quake[0], quake[1], quake[2], current_id))
                     connection.commit()
         return redirect("/people/show")
-    return render_template('new.html')
+    return render_template('person/new.html')
 
 
 @app.route('/people/show/<id>', methods=['GET', 'POST'])
@@ -93,7 +96,7 @@ def get_person(id):
             # quakes_objects = [Quake(*quake) for quake in quakes_tuples]
             plot_url = chart_generator.make_chart(quakes_tuples, person.name)
 
-    return render_template("show.html", person=person, quakes=quakes_tuples, plot_url=plot_url)
+    return render_template("person/show.html", person=person, quakes=quakes_tuples, plot_url=plot_url)
 
 
 @app.route('/people/update/<id>', methods=['POST', 'GET'])
@@ -107,7 +110,7 @@ def update_person(id):
                 cursor.execute(UPDATE_ONE, (name, date_of_birth, address, id))
                 connection.commit()
         return redirect("/people/show")
-    return render_template('update.html')
+    return render_template('person/update.html')
 
 
 @app.route('/people/delete/<id>', methods=['POST', 'GET'])
@@ -118,6 +121,28 @@ def delete_student(id):
             connection.commit()
 
     return redirect("/people/show")
+
+@app.route("/people/quakes", methods=['GET'])
+def get_quakes():
+    with connection:
+        with connection.cursor() as cursor:
+            cursor.execute(CREATE_PEOPLE_TABLE)
+            cursor.execute(SELECT_ALL_QUAKES)
+            quake_tuples = cursor.fetchall()
+            cursor.execute(SELECT_ALL_PEOPLE)
+            people_tuples = cursor.fetchall()
+            people_objects = [Person(*person) for person in people_tuples]
+            quake_objects = []
+            for quake in quake_tuples:
+                # try:
+                this_person = next(person for person in people_objects if person.id == quake[4])
+                # except StopIteration:
+                #     return None
+                new_quake = Quake(quake[0], quake[1], quake[2], quake[3], this_person)
+                quake_objects.append(new_quake)
+
+    return render_template('quake/index.html', quakes=quake_objects)
+
 
 
 if __name__ == '__main__':
