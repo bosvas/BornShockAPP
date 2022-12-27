@@ -10,8 +10,8 @@ def make_chart(quake_list, name):
     x = []
     y = []
     for quake in quake_list:
-        x.append(quake[2])
-        y.append(quake[1])
+        x.append(quake[3])
+        y.append(quake[2])
 
     plt.plot_date(x, y, label=name, linestyle='solid')
     plt.gcf().autofmt_xdate()

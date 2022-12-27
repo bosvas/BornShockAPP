@@ -11,20 +11,20 @@ def get_latitude_longitude_by_city(adress):
     return latitude, longitude
 
 
-def get_quakes(start_time, address):
+def get_quakes(person):
     url = 'https://earthquake.usgs.gov/fdsnws/event/1/query?'
 
     format = '%Y-%m-%d'
-    start_in_date_format = datetime.datetime.strptime(start_time, format)
+    start_in_date_format = datetime.datetime.strptime(person.date_of_birth, format)
     end_time_in_data_format = start_in_date_format + datetime.timedelta(days=7)
     end_time = end_time_in_data_format.strftime(format)
-    coordinates = get_latitude_longitude_by_city(address)
+    coordinates = get_latitude_longitude_by_city(person.address)
     latitude = coordinates[0]
     longitude = coordinates[1]
 
     response = requests.get(url, headers={'Accept': 'application/json'}, params={
         'format': 'geojson',
-        'starttime': start_time,
+        'starttime': person.date_of_birth,
         'endtime': end_time,
         'latitude': latitude,
         'longitude': longitude,
